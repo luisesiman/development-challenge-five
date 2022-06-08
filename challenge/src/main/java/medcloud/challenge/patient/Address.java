@@ -1,11 +1,14 @@
 package medcloud.challenge.patient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="address")
+@Data
+@NoArgsConstructor
 public class Address {
 
     @Id
@@ -25,10 +28,6 @@ public class Address {
     private int number;
 
 
-
-    public Address() {
-    }
-
     public Address(String state, String city, String street, int number) {
         this.state = state;
         this.city = city;
@@ -36,55 +35,4 @@ public class Address {
         this.number = number;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", state='" + state + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", number='" + number + '\'' +
-                '}';
-    }
 }
