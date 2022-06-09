@@ -29,4 +29,7 @@ public class PatientService {
         patient.setId(generatedId);
     }
 
+    public Optional<Patient> getPatientByEmail(String email) {
+        return patientRepository.findPatientByEmail(email);
+    }
 }
