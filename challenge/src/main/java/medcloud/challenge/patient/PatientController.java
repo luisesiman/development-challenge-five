@@ -2,6 +2,8 @@ package medcloud.challenge.patient;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -39,11 +41,15 @@ public class PatientController {
     }
 
     @PostMapping(path = "api/patient")
-    public void registerPatient(@RequestBody Patient patient) {
+    public ResponseEntity<?> registerPatient(@RequestBody Patient patient) {
         patientService.getPatientByEmail(patient.getEmail()).ifPresent(user -> {
             throw new DuplicateEmailException(patient.getEmail());
         });
-        patientService.addPatient(patient);
+
+        EntityModel<Patient> entityModel = patientModelAssembler.toModel(patientService.addPatient(patient));
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
     }
 
 }

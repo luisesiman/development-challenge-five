@@ -20,13 +20,12 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public void addPatient(Patient patient){
+    public Patient addPatient(Patient patient){
         Optional<Patient> patientOptional = patientRepository.findPatientByEmail(patient.getEmail());
         if(patientOptional.isPresent()){
             throw new IllegalStateException("Email already in use!");
         }
-        Long generatedId = patientRepository.save(patient).getId();
-        patient.setId(generatedId);
+        return patientRepository.save(patient);
     }
 
     public Optional<Patient> getPatientByEmail(String email) {
